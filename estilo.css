@@ -1,0 +1,110 @@
+/* Reseteamos margenes */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Todo con el elemento raíz */
+:root{
+    height:100%;
+    --color-menta:rgb(129, 189, 114);
+    --color-menta-claro: rgb(129,189,114, 0.5);
+    --color-naranja:#e88e51;
+    --color-fuente: rgb(94, 94, 94);
+    --color-fuente-claro: rgb(94, 94, 94, 0.5);
+    --color-blanco: rgb(255,255,255);
+}
+
+/*** MAIN ***/
+main{
+    text-align: center;
+    font-weight: 16px;
+    background-color: var(--color-menta-claro);
+    color: var(--color-fuente);
+}
+
+/* HEADER */
+header{
+    background-color: var(--color-menta);
+}
+
+/* tablero */
+#tablero{
+    padding: 2em 2em 3em 2em;
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-auto-rows: 200px;
+}
+.area_tarjeta{
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px; /* Efecto 3D */
+}
+.tarjeta{
+    border: 1px solid var(--color-blanco);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+.area_tarjeta:hover .tarjeta{
+    transform: rotateY(180deg);
+}
+
+.cara{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+/* Estilo encima */
+.delante{
+    background-color: var(--color-naranja);
+}
+.delante p{
+    font-size: 100px;
+    padding: 0.3em;
+    color: var(--color-blanco);
+}
+
+/* Debajo */
+.debajo{
+    background-color: var(--color-fuente-claro);
+    transform: rotateY(180deg);
+}
+/* Estilo debajo si se pierde la imagen */
+.debajo{
+    background-color: var(--color-fuente);
+    color: var(--color-blanco);
+}
+.debajo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.nuevo{
+    margin: 0 0 1em 0;
+    background-color: var(--color-naranja);
+    border-color: var(--color-blanco);
+    color: var(--color-blanco);
+    padding: 0.5em;
+}
+
+
+/*** FOOTER ***/
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-menta);
+    padding: 1em;
+    color: var(--color-fuente);
+}
