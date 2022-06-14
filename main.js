@@ -75,7 +75,8 @@ function eliminar(eleccion){
             contador ++;
             console.log(contador);
             if(contador===6){
-                alert("ganaste");
+                ganar = document.querySelector(".ganar");
+                ganar.style.display="block";
             }
         }
     }, 1000);
@@ -84,5 +85,10 @@ function eliminar(eleccion){
 
 
 const nuevo = document.querySelector(".nuevo");
-nuevo.addEventListener("click", generarCartas);
+nuevo.addEventListener("click", ()=>{
+    generarCartas();
+    if (ganar.style.display="block"){
+        ganar.style.display="none";
+    }
+});
 

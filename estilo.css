@@ -104,6 +104,29 @@ header{
 }
 
 
+.ganar{
+    font-size: 100px;
+    position: absolute;
+    top: 2em;
+    left: 1em;
+    right: 1em;
+    display: none;
+    color: var(--color-naranja);
+    animation: ganar 1.5s;
+}
+@keyframes ganar {
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform: scale(1.5);
+    }
+}
+
+
+
 .nuevo{
     margin: 0 0 1em 0;
     background-color: var(--color-naranja);
