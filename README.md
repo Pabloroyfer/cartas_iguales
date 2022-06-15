@@ -1,4 +1,4 @@
-# cartas_iguales
+# cartas_iguales  (EN PROCESO)
 
 Juego de encontrar la pareja con diferentes dificultades.
 
