@@ -1,9 +1,14 @@
+//llamadas_constantes
+const facil = document.querySelector(".facil");
+const ganar = document.querySelector(".ganar");
 //variables
 let eleccion=[];
 let imagenFacil=[];
+var contadorFacil=0;
 let imagenIntermedio=[];
-let imagenDificil=[];
 let contador=0;
+let imagenDificil=[];
+
 
 //modo facil
 function generarImagenFacil(){
@@ -23,7 +28,7 @@ function generarCartasFacil(){
     let tarjetas=[];
     for (let i = 0; i < 12; i++){
         tarjetas.push(`
-            <div class="area_tarjeta" onclick="elegirTarjeta(${i})">
+            <div class="area_tarjeta" onclick="elegirTarjetaFacil(${i})">
                 <div class="tarjeta" id="tarjeta${i}">
                     <div class="cara delante">
                         <p>?</p>
@@ -76,12 +81,11 @@ function eliminarFacil(eleccion){
         else{
             debajo1.style.background = "yellow";
             debajo2.style.background = "yellow";
-            contador ++;
-            console.log(contador);
-            if(contador===6){
-                ganar = document.querySelector(".ganar");
+            contadorFacil ++;
+            console.log(contadorFacil);
+            if(contadorFacil ===6){
                 ganar.style.display="block";
-                contador=0;
+                contadorFacil=0;
             }
         }
     }, 1000);
@@ -172,7 +176,6 @@ function eliminar(eleccion){
             contador ++;
             console.log(contador);
             if(contador===17){
-                ganar = document.querySelector(".ganar");
                 ganar.style.display="block";
                 ganar.style.fontSize="200px";
                 contador=0;
@@ -184,19 +187,19 @@ function eliminar(eleccion){
 //modo dificil
 
 
-//llamadas_constantes
-const facil = document.querySelector(".facil");
 facil.addEventListener("click", ()=>{
     generarCartasFacil();
-    if (ganar.style.display="block"){
+    if (ganar.style.display="block" && contadorFacil!=0){
         ganar.style.display="none";
+        contadorFacil=0;
     }
 });
 
 const intermedio = document.querySelector(".intermedio");
 intermedio.addEventListener("click", ()=>{
     generarCartas();
-    if (ganar.style.display="block"){
+    if (ganar.style.display="block" && contador!=0){
         ganar.style.display="none";
+        contador=0;
     }
 });
