@@ -125,6 +125,21 @@ header{
     }
 }
 
+#crono{
+    background-color:var(--color-fuente);
+    width: 120px;
+    margin: .5em auto;
+    display: flex;
+    gap: .5em;
+    justify-content: center;
+    align-items: center;
+}
+#crono div{
+    color: var(--color-blanco);
+}
+#parar{
+    margin-left: 0.5em;
+}
 
 
 .nivel{
