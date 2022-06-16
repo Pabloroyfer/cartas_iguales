@@ -384,7 +384,7 @@ dificil.addEventListener("click", ()=>{
 });
 
 
-ulta.addEventListener("click", ()=>{
+ultra.addEventListener("click", ()=>{
     alert("Todavía no está listo.. vuelve a intentarlo más tarde!")
     //generarCartas();
     //detener();
