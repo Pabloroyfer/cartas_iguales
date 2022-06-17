@@ -4,6 +4,7 @@ const intermedio = document.querySelector(".intermedio");
 const dificil = document.querySelector(".dificil");
 const ultra = document.querySelector(".ultra");
 const ganar = document.querySelector(".ganar");
+const perder= document.getElementById("perder");
 //variables generales
 let eleccion=[];
 let imagenFacil=[];
@@ -75,6 +76,7 @@ function iniciarCrono (){
     }
     corriendo = setInterval(incrementar,10);
 }
+
 tiempo();
 
 // NIVELES DE JUEGO
@@ -154,7 +156,6 @@ function eliminarFacil(eleccion){
                 ganar.style.display="block";
                 contadorFacil=0;
                 detener();
-                reiniciar();
             }
         }
     }, 1000);
@@ -236,8 +237,8 @@ function eliminarIntermedio(eleccion){
             console.log(contadorIntermedio);
             if(contadorIntermedio===12){
                 ganar.style.display="block";
-                ganar.style.fontSize="200px";
                 contadorIntermedio=0;
+                detener();
             }
         }
     }, 1000);
@@ -325,8 +326,8 @@ function eliminar(eleccion){
             console.log(contador);
             if(contador===17){
                 ganar.style.display="block";
-                ganar.style.fontSize="200px";
                 contador=0;
+                detener();
             }
         }
     }, 1000);
@@ -334,8 +335,132 @@ function eliminar(eleccion){
 
 // Nivel muy dificil (jugamos contra el cronometro)
 
+//CRONOMETRO
+
+function tiempoD(){
+    segundos=(document.getElementById('segundos')).innerHTML = seg + " s";
+    centesimas=(document.getElementById('centesimas')).innerHTML = cent;
+}
+//funcion para que el cronometro funcione
+function cronoD(){
+    if (corriendo){
+        perder.style.display="block";
+    }
+    if(corriendo){
+        reiniciar();
+    }
+    else{
+        setTimeout(iniciarCronoD,3000);
+    }
+}
+// Reiniciar el cronometro
+function reiniciarD(){
+    seg = 5;
+    cent = 0;
+}
+
+// Iniciar
+function iniciarCronoD (){
+	const restarSegundo = () => {
+        seg --;
+        if(seg === -1){
+            seg = 0;
+            cent=0;
+            detener();
+        }
+	}
+    const incrementar = () =>{
+        if(cent === 0){
+            cent = 99;
+            restarSegundo();
+        }
+        else{
+            cent --;
+        }
+        tiempo();
+    }
+    corriendo = setInterval(incrementar,10);
+}
+//Fin
+function finalizarCrono(){
+    perder.style.display = "block";
+
+}
+function finCrono(){
+    if(corriendo){
+        reiniciar();
+    }
+    else{
+        setTimeout(finalizarCrono,8000);
+    }
+}
 
 
+function generarCartasCrono(){
+    generarImagenIntermedio();
+    let tablero = document.getElementById("tablero");
+    let tarjetas=[];
+    for (let i = 0; i < 24; i++){
+        tarjetas.push(`
+            <div class="area_tarjeta" onclick="elegirTarjetaCrono(${i})">
+                <div class="tarjeta" id="tarjeta${i}">
+                    <div class="cara delante">
+                        <p>?</p>
+                    </div>
+                    <div class="cara debajo">
+                        ${imagenIntermedio[0]}
+                    </div>
+                </div>
+            </div>
+            `)
+            if(i%2==1){
+                imagenIntermedio.splice(0,1);
+            }
+    }
+    tarjetas.sort(()=>Math.random()-0.5);
+    //console.log(tarjetas);
+    tablero.innerHTML = tarjetas.join("");   
+}
+
+function elegirTarjetaCrono(i){
+    let tarjeta = document.getElementById("tarjeta"+i);
+    //console.log(tarjeta);
+    if(tarjeta.style.transform != "rotateY(180deg)"){
+        tarjeta.style.transform= "rotateY(180deg)";
+        eleccion.push(i);
+        console.log(eleccion, eleccion.length);
+        
+    }
+    if(eleccion.length == 2 ){
+        eliminarCrono(eleccion);
+        eleccion = [];        
+    }   
+}
+
+function eliminarCrono(eleccion){
+    setTimeout(()=>{
+        let debajo1= document.getElementById("tarjeta"+eleccion[0]);
+        let debajo2= document.getElementById("tarjeta"+eleccion[1]);
+
+        if (debajo1.innerHTML != debajo2.innerHTML){
+            let tarjeta1= document.getElementById("tarjeta"+eleccion[0]);
+            let tarjeta2= document.getElementById("tarjeta"+eleccion[1]);
+            tarjeta1.style.transform = "rotateY(0deg)";
+            tarjeta2.style.transform = "rotateY(0deg)";
+        }
+        else{
+            debajo1.style.background = "yellow";
+            debajo2.style.background = "yellow";
+            contadorIntermedio ++;
+            console.log(contadorIntermedio);
+            if(contadorIntermedio===12){
+                ganar.style.display="block";
+                contadorIntermedio=0;
+                detener();
+            }
+        }
+    }, 1000);
+}
 
 
 
@@ -344,56 +469,62 @@ function eliminar(eleccion){
 //Hacer click en los niveles de dificultad
 
 facil.addEventListener("click", ()=>{
-    generarCartasFacil();
-    detener();
     reiniciar();
-    crono();
-    ganar.style.display="none";
-    if (ganar.style.display="block" && contadorFacil!=0){
-        contadorFacil=0;
-        reiniciar();
+    generarCartasFacil();
+    if (ganar.style.display="block" && contadorFacil == 0){
+        ganar.style.display="none";
+        detener();
     }
+    if(ganar.style.display="none"){
+        detener();
+    }
+    contadorFacil=0;
+    crono();
 });
 
 
 intermedio.addEventListener("click", ()=>{
-    generarCartasIntermedio();
-    detener();
     reiniciar();
-    crono();
-    ganar.style.display="none";
-    if (ganar.style.display="block" && contadorIntermedio!=0){
+    generarCartasIntermedio();
+    if (ganar.style.display="block" && contadorIntermedio == 0){
         ganar.style.display="none";
-        contadorIntermedio=0;
-        reiniciar();
+        detener();
     }
+    if(ganar.style.display="none"){
+        detener();
+    }
+    contadorIntermedio=0;
+    crono();
 });
 
 
 dificil.addEventListener("click", ()=>{
-    generarCartas();
-    detener();
     reiniciar();
-    crono();
-    ganar.style.display="none";
-    if (ganar.style.display="block" && contador!=0){
+    generarCartas();
+    if (ganar.style.display="block" && contador == 0){
         ganar.style.display="none";
-        contador=0;
-        reiniciar();
+        detener();
     }
+    if(ganar.style.display="none"){
+        detener();
+    }
+    contador=0;
+    crono();
 });
 
 
 ultra.addEventListener("click", ()=>{
-    alert("Todavía no está listo.. vuelve a intentarlo más tarde!")
-    //generarCartas();
-    //detener();
-    //reiniciar();
-    //crono();
-    //ganar.style.display="none";
-    //if (ganar.style.display="block" && contador!=0){
-    //    ganar.style.display="none";
-    //    contador=0;
-    //    reiniciar();
-    //}
+    reiniciarD();
+    generarCartasCrono();
+    if (ganar.style.display="block" && contadorIntermedio == 0){
+        ganar.style.display="none";
+        detener();
+    }
+    if(ganar.style.display="none"){
+        detener();
+    }
+    // MIRAR POR AQUII *********************************************************************************************************************************************************************************************************************************
+    contadorIntermedio=0;
+    cronoD();
+    finCrono();
 });
