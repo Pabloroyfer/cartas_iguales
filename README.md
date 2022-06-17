@@ -20,6 +20,10 @@ Habrá que encontrar todas las cartas antes de 30 segundos.
 
 Comprueba tu tiempo.
 
+## Nivel especial
+Habrá que encontrar todas las cartas antes de 30 segundos.
+
+
 
 
 

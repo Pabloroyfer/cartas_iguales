@@ -2,7 +2,7 @@
 const facil = document.querySelector(".facil");
 const intermedio = document.querySelector(".intermedio");
 const dificil = document.querySelector(".dificil");
-const ultra = document.querySelector(".ultra");
+const especial = document.querySelector(".especial");
 const ganar = document.querySelector(".ganar");
 const perder= document.getElementById("perder");
 //variables generales
@@ -513,7 +513,7 @@ dificil.addEventListener("click", ()=>{
 });
 
 
-ultra.addEventListener("click", ()=>{
+especial.addEventListener("click", ()=>{
     reiniciarD();
     generarCartasCrono();
     if (ganar.style.display="block" && contadorIntermedio == 0){
