@@ -76,15 +76,6 @@ function iniciarCrono (){
     }
     corriendo = setInterval(incrementar,10);
 }
-//Guardar marca de tiempo
-//function guardarMarca(){
-//    if(){
-//
-//    }
-//    else{
-//        
-//    }
-//}
 
 tiempo();
 
@@ -355,7 +346,6 @@ function tiempoD(){
 function cronoD(){
     if(corriendo){
         reiniciar();
-        perder.style.display="none";
     }
     else{
         setTimeout(iniciarCronoD,3000);
@@ -363,7 +353,7 @@ function cronoD(){
 }
 // Reiniciar el cronometro
 function reiniciarD(){
-    seg = 5;
+    seg = 60;
     cent = 0;
 }
 
@@ -398,7 +388,7 @@ function finCrono(){
         reiniciar();
     }
     else{
-        setTimeout(finalizarCrono,8000);
+        setTimeout(finalizarCrono,63000);
     }
 }
 
