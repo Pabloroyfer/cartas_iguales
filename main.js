@@ -388,7 +388,7 @@ function finCrono(){
         reiniciar();
     }
     else{
-        setTimeout(finalizarCrono,63000);
+        setTimeout(finalizarCrono,33000);
     }
 }
 
