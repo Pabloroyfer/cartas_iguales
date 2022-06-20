@@ -18,6 +18,7 @@ let min= 00;
 let seg= 00;
 let cent= 00;
 let corriendo = null;
+let marca = [];
 
 
 //CRONOMETRO
@@ -48,10 +49,9 @@ function detener(){
     corriendo = null;
 };
 
-// Iniciar
+// Iniciar el cronometro
 function iniciarCrono (){
     const sumarMinuto = () => {
-
 		if(min < 99) min ++;
 	}
 	const sumarSegundo = () => {
@@ -76,12 +76,22 @@ function iniciarCrono (){
     }
     corriendo = setInterval(incrementar,10);
 }
+//Guardar marca de tiempo
+//function guardarMarca(){
+//    if(){
+//
+//    }
+//    else{
+//        
+//    }
+//}
 
 tiempo();
 
+
 // NIVELES DE JUEGO
 
-// Nivel facil (menos fotos)
+// Nivel facil (tiene menos fotos)
 function generarImagenFacil(){
     imagenFacil = [
         '<img src="imagenes/pingüino.png"></img>',
@@ -119,7 +129,7 @@ function generarCartasFacil(){
     tablero.innerHTML = tarjetas.join("");
     
 }
-
+//seleccion de la carta para que se gire
 function elegirTarjetaFacil(i){
     let tarjeta = document.getElementById("tarjeta"+i);
     //console.log(tarjeta);
@@ -136,7 +146,7 @@ function elegirTarjetaFacil(i){
     }
     
 }
-
+//para que se deseleccione la carta y si se acierta se quede girada
 function eliminarFacil(eleccion){
     setTimeout(()=>{
         let debajo1= document.getElementById("tarjeta"+eleccion[0]);
@@ -152,7 +162,7 @@ function eliminarFacil(eleccion){
             debajo2.style.background = "yellow";
             contadorFacil ++;
             console.log(contadorFacil);
-            if(contadorFacil ===6){
+            if(contadorFacil === 6){
                 ganar.style.display="block";
                 contadorFacil=0;
                 detener();
@@ -343,11 +353,9 @@ function tiempoD(){
 }
 //funcion para que el cronometro funcione
 function cronoD(){
-    if (corriendo){
-        perder.style.display="block";
-    }
     if(corriendo){
         reiniciar();
+        perder.style.display="none";
     }
     else{
         setTimeout(iniciarCronoD,3000);
@@ -384,7 +392,6 @@ function iniciarCronoD (){
 //Fin
 function finalizarCrono(){
     perder.style.display = "block";
-
 }
 function finCrono(){
     if(corriendo){
@@ -466,7 +473,7 @@ function eliminarCrono(eleccion){
 
   
     
-//Hacer click en los niveles de dificultad
+// HACER CLICK EN LOS NIVELES DE DIFICULTAD
 
 facil.addEventListener("click", ()=>{
     reiniciar();
@@ -478,6 +485,7 @@ facil.addEventListener("click", ()=>{
     if(ganar.style.display="none"){
         detener();
     }
+    perder.style.display="none";
     contadorFacil=0;
     crono();
 });
@@ -493,6 +501,7 @@ intermedio.addEventListener("click", ()=>{
     if(ganar.style.display="none"){
         detener();
     }
+    perder.style.display="none";
     contadorIntermedio=0;
     crono();
 });
@@ -508,6 +517,7 @@ dificil.addEventListener("click", ()=>{
     if(ganar.style.display="none"){
         detener();
     }
+    perder.style.display="none";
     contador=0;
     crono();
 });
@@ -523,7 +533,13 @@ especial.addEventListener("click", ()=>{
     if(ganar.style.display="none"){
         detener();
     }
-    // MIRAR POR AQUII *********************************************************************************************************************************************************************************************************************************
+    if (perder.style.display="block" && contadorIntermedio == 0){
+        perder.style.display="none";
+        detener();
+    }
+    if(perder.style.display="none"){
+        detener();
+    }
     contadorIntermedio=0;
     cronoD();
     finCrono();

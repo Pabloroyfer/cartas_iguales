@@ -111,8 +111,9 @@ header{
     left: 1em;
     right: 1em;
     display: none;
-    color: var(--color-naranja);
+    color: var(--color-fuente);
     animation: ganar 1.5s;
+    z-index: 4;
 }
 @keyframes ganar {
 
